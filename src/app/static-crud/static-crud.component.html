@@ -1,0 +1,99 @@
+<div class="row">
+  <div class="col-12">
+    <ul class="list-inline">
+      <li class="list-inline-item">
+        <button type="button" routerLink="/" class="sm-btn">Back</button>
+      </li>
+      <li class="list-inline-item">
+        <h3 class="ak-title">Static CRUD</h3>
+      </li>
+    </ul>
+  </div>
+</div>
+<div class="row">
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="ak-sub-title">Form</h4>
+        <form [formGroup]="regForm" (ngSubmit)="onSubmit(regForm.value)">
+          <div class="form-group row">
+            <label class="col-3">Name</label>
+            <div class="col-5">
+              <input [ngClass]="{'is-invalid': submitted && fc.name.errors}" type="text" class="form-control" formControlName="name">
+              <div *ngIf="submitted && fc.name.errors">
+                <span *ngIf="submitted && fc.name.errors?.required" class="error">This field is required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3">Email Id</label>
+            <div class="col-5">
+              <input [ngClass]="{'is-invalid': submitted && fc.email.errors}" type="text" class="form-control" formControlName="email">
+              <div *ngIf="submitted && fc.email.errors">
+                <span *ngIf="submitted && fc.email.errors?.required" class="error">This field is required.</span>
+                <span *ngIf="submitted && fc.email.errors?.email" class="error">Email format is required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-3">Mobile No.</label>
+            <div class="col-5">
+              <input type="text" class="form-control" maxlength="10" formControlName="mobile">
+              <div *ngIf="submitted && fc.mobile.errors">
+                <span *ngIf="submitted && fc.mobile.errors?.required" class="error">This field is required.</span>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <ul class="list-inline">
+                <li class="list-inline-item">
+                  <button *ngIf="!edit_flag" type="submit" class="primary-btn">Submit</button>
+                  <button *ngIf="edit_flag" type="button" (click)="onUpdate()" class="primary-btn">Update</button>
+                </li>
+                <li class="list-inline-item">
+                  <button type="reset" class="secondary-btn">Reset</button>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="col-6">
+    <div class="card">
+      <div class="card-body">
+        <h4 class="ak-sub-title">Table</h4>
+        <div *ngIf="noData_flag" class="table-responsive">
+          <table class="table">
+            <tr>
+              <th>Sr.No.</th>
+              <th>Name</th>
+              <th>Email Id</th>
+              <th>Mobile No.</th>
+              <th>Action</th>
+            </tr>
+            <tr *ngFor="let item of tableData;let i=index;">
+              <td>{{i+1}}</td>
+              <td>{{item.name}}</td>
+              <td>{{item.email}}</td>
+              <td>{{item.mobile}}</td>
+              <td>
+                <ul class="list-inline">
+                  <li class="list-inline-item">
+                    <a (click)="onEdit(i)">Edit</a>
+                  </li>
+                  <li class="list-inline-item">
+                    <a (click)="onDelete(i)" class="trash">Delete</a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </table>
+        </div>
+        <p *ngIf="!noData_flag" class="error">No Data</p>
+      </div>
+    </div>
+  </div>
+</div>

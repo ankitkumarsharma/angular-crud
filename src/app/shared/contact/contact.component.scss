@@ -1,0 +1,13 @@
+@import '../../scss/variable';
+.card{
+  table{
+    border: 1px solid $border;
+    border-collapse: collapse;
+    padding: 5px;
+    tr{
+      td{
+        @extend table;
+      }
+    }
+  }
+}

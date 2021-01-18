@@ -1,0 +1,28 @@
+@import './variable';
+.btn{
+  min-width: 130px;
+  color: $white_color;
+  border-radius: 35px;
+  &:hover{
+    background-color: $secondary_color;
+    color: $white_color;
+  }
+  &:focus{
+    outline: 0;
+    box-shadow: none;
+  }
+}
+.primary-btn{
+  @extend .btn;
+  background-color: $primary_color;
+}
+.secondary-btn{
+  @extend .btn;
+  background-color: $tri_color;
+}
+.sm-btn{
+  @extend .btn;
+  background-color: $primary_color;
+  width: 60px;
+  min-width: auto;
+}

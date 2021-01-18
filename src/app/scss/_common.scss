@@ -1,0 +1,43 @@
+@import './variable';
+
+.ak-title{
+  font-size: 18px;
+  color: $primary_color;
+  font-weight: 500;
+}
+.ak-sub-title{
+  font-size: 16px;
+  color: $tri_color;
+  font-weight: 500;
+}
+.ak-para{
+  font-size: 14px;
+  color: $black_color;
+  opacity: 0.7;
+}
+.ak-title-lg{
+  @extend .ak-title;
+  font-size: 26px;
+}
+.card{
+  min-height: 118px;
+  margin-bottom: 15px;
+  &.disabled{
+    pointer-events: none;
+    background-color: $white_color;
+    &::after{
+      background: $error_color;
+    }
+  }
+  &:hover{
+    border-color: $primary_color;
+  }
+}
+.error{
+  font-size: 12px;
+  font-style: italic;
+  color: $error_color;
+}
+body{
+  font-size: 14px;
+}

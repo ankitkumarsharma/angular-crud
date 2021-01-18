@@ -1,0 +1,25 @@
+@import './variable';
+.space{
+  width: 100%;
+  background-color: transparent;
+}
+.space-10{
+  @extend .space;
+  height: 10px;
+}
+.space-20{
+  @extend .space;
+  height: 20px;
+}
+.space-30{
+  @extend .space;
+  height: 30px;
+}
+.space-40{
+  @extend .space;
+  height: 40px;
+}
+.space-50{
+  @extend .space;
+  height: 50px;
+}
