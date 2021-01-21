@@ -38,7 +38,7 @@
           <div class="form-group row">
             <label class="col-3">Mobile No.</label>
             <div class="col-5">
-              <input type="text" class="form-control" maxlength="10" formControlName="mobile">
+              <input type="text" [ngClass]="{'is-invalid': submitted && fc.email.errors}" class="form-control" maxlength="10" formControlName="mobile">
               <div *ngIf="submitted && fc.mobile.errors">
                 <span *ngIf="submitted && fc.mobile.errors?.required" class="error">This field is required.</span>
               </div>
@@ -52,7 +52,7 @@
                   <button *ngIf="edit_flag" type="button" (click)="onUpdate()" class="primary-btn">Update</button>
                 </li>
                 <li class="list-inline-item">
-                  <button type="reset" class="secondary-btn">Reset</button>
+                  <button type="button" (click)="resetForm()" class="secondary-btn">Reset</button>
                 </li>
               </ul>
             </div>

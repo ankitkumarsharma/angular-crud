@@ -56,7 +56,7 @@ export class StaticCrudComponent implements OnInit {
   onUpdate(){
     this.tableData[this.edit_index] = this.regForm.value;
     this.edit_flag = false;
-    this.regForm.reset();
+    this.resetForm();
   }
   onDelete(index:number){
     this.tableData.splice(index,1);
@@ -65,6 +65,11 @@ export class StaticCrudComponent implements OnInit {
     } else {
       this.noData_flag = true;
     }
+  }
+  resetForm(){
+    this.regForm.reset();
+    this.submitted = false;
+    this.edit_flag = false;
   }
 
 }
