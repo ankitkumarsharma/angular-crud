@@ -32,7 +32,7 @@ userRouter.get("/:id", async (req, res) => {
         res.status(404).send(`Failed to find an user: ID ${req?.params?.id}`);
     }
 });
-
+// insert user details
 userRouter.post("/", async (req, res) => {
     try {
         const user = req.body;
@@ -48,39 +48,42 @@ userRouter.post("/", async (req, res) => {
         res.status(400).send("Error on Database");
     }
 });
-
-userRouter.put("/:id", async (req, res) => {
+// update user details
+// userRouter.put("/:id", async (req, res) => {
+userRouter.post("/update", async (req, res) => {
     try {
-        const id = req?.params?.id;
-        const user = req.body;
-        const query = { _id: new mongodb.ObjectId(id) };
+        // const id = req?.params?.id;
+        let user = req.body;
+        const query = { _id: new mongodb.ObjectId(req.body._id) };
+        user['_id'] = query._id;
         const result = await collections.user?.updateOne(query, { $set: user });
 
         if (result && result.matchedCount) {
-            res.status(200).send(`Updated an user: ID ${id}.`);
+            res.status(200).send(`Updated an user: ID ${req.body._id}.`);
         } else if (!result?.matchedCount) {
-            res.status(404).send(`Failed to find an user: ID ${id}`);
+            res.status(404).send(`Failed to find an user: ID ${req.body._id}`);
         } else {
-            res.status(304).send(`Failed to update an user: ID ${id}`);
+            res.status(304).send(`Failed to update an user: ID ${req.body._id}`);
         }
     } catch (error) {
-        console.error("DB error");
-        res.status(400).send("DB error");
+        console.error("DB update error");
+        res.status(400).send("DB update 2 error");
     }
 });
-
-userRouter.delete("/:id", async (req, res) => {
+// delete user details
+// userRouter.delete("/:id", async (req, res) => {
+userRouter.post("/delete", async (req, res) => {
     try {
-        const id = req?.params?.id;
-        const query = { _id: new mongodb.ObjectId(id) };
+        // const id = req?.params?.id;
+        const query = { _id: new mongodb.ObjectId(req.body._id) };
         const result = await collections.user?.deleteOne(query);
 
         if (result && result.deletedCount) {
-            res.status(202).send(`Removed an user: ID ${id}`);
+            res.status(202).send(`Removed an user: ID ${req.body._id}`);
         } else if (!result) {
-            res.status(400).send(`Failed to remove an user: ID ${id}`);
+            res.status(400).send(`Failed to remove an user: ID ${req.body._id}`);
         } else if (!result.deletedCount) {
-            res.status(404).send(`Failed to find an user: ID ${id}`);
+            res.status(404).send(`Failed to find an user: ID ${req.body._id}`);
         }
     } catch (error) {
         console.error("Error on DB");

@@ -15,6 +15,7 @@ export class DynamicCrudComponent implements OnInit {
   noData_flag!:boolean;
   edit_flag!:boolean;
   edit_index!:number;
+  edit_value!:FormType;
   constructor(private _fb:FormBuilder, private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -47,16 +48,20 @@ export class DynamicCrudComponent implements OnInit {
       } else {
         this.noData_flag = false;
       }
-      this.tableData.push(value);
+      this.apiService.insertUserDetails(value).subscribe((data:any)=>{
+        alert(data);
+        this.getUserDetails();
+      })
       this.submitted = false;
       this.regForm.reset();
     } else {
       this.regForm.markAllAsTouched();
     }
   }
-  onEdit(index:number){
+  onEdit(index:number,value:FormType){
     this.edit_flag = true;
     this.edit_index = index;
+    this.edit_value = value;
     this.regForm.setValue({
       name:this.tableData[index]['name'],
       email:this.tableData[index]['email'],
@@ -64,17 +69,33 @@ export class DynamicCrudComponent implements OnInit {
     })
   }
   onUpdate(){
-    this.tableData[this.edit_index] = this.regForm.value;
-    this.edit_flag = false;
-    this.resetForm();
+    let updatedData = this.regForm.value;
+    updatedData['_id'] = this.edit_value['_id'];
+    this.apiService.updateUserDetail(updatedData).subscribe((data:any)=>{
+      if(data){
+        alert(data);
+        this.edit_flag = false;
+        this.getUserDetails();
+        this.resetForm();
+      }
+    })
+    // this.tableData[this.edit_index] = this.regForm.value;
+    
   }
-  onDelete(index:number){
-    this.tableData.splice(index,1);
-    if(this.tableData.length === 0){
-      this.noData_flag = false;
-    } else {
-      this.noData_flag = true;
-    }
+  onDelete(index:number,value:FormType){
+    this.edit_value = value;
+    this.apiService.deleteUserDetail(value).subscribe((data:any)=>{
+      if(data){
+        alert(data);
+        this.getUserDetails();
+        // this.tableData.splice(index,1);
+        if(this.tableData.length === 0){
+          this.noData_flag = false;
+        } else {
+          this.noData_flag = true;
+        }
+      }
+    })
   }
   resetForm(){
     this.regForm.reset();
