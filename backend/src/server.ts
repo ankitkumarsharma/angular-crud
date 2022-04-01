@@ -25,3 +25,5 @@ connectToDatabase(ATLAS_URI).then(()=>{
             console.log(`Server running at http://localhost:5200...`);
         });
 }).catch(error => console.error(error));
+
+// run server npx ts-node src/server.ts

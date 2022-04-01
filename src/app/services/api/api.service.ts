@@ -17,11 +17,10 @@ export class ApiService {
   insertUserDetails(body:FormType){
     return this.http.post(this.baseUrl,body,{headers: {}, responseType: "text" });
   }
-  updateUserDetail(body:FormType){
-    // return this.http.put(this.baseUrl,body,{headers: {}, responseType: "text", params: {id: params} });
-    return this.http.post(this.baseUrl+this.apiRouteValue.update,body,{headers: {}, responseType: "text" });
+  updateUserDetail(id:string, body:FormType){
+    return this.http.put(`${this.baseUrl}/${id}`,body,{headers: {}, responseType: "text" });
   }
-  deleteUserDetail(body:FormType){
-    return this.http.post(this.baseUrl+this.apiRouteValue.delete,body,{headers: {}, responseType: "text" });
+  deleteUserDetail(id:string){
+    return this.http.delete(`${this.baseUrl}/${id}`,{headers: {}, responseType: "text" });
   }
 }

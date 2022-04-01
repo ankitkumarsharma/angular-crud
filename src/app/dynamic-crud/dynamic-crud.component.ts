@@ -24,9 +24,12 @@ export class DynamicCrudComponent implements OnInit {
   }
   getUserDetails(){
     this.apiService.getUserDetails().subscribe((data:any)=>{
-      if(data){
+      if(data.length > 0){
         this.noData_flag = true;
         this.tableData = data;
+      } else {
+        this.tableData = [];
+        this.noData_flag = false;
       }
     })
   }
@@ -43,13 +46,12 @@ export class DynamicCrudComponent implements OnInit {
   onSubmit(value:FormType){
     this.submitted = true;
     if(this.regForm.valid){
-      if(this.tableData){
+      if(this.tableData.length > 0){
         this.noData_flag = true;
       } else {
         this.noData_flag = false;
       }
       this.apiService.insertUserDetails(value).subscribe((data:any)=>{
-        alert(data);
         this.getUserDetails();
       })
       this.submitted = false;
@@ -70,30 +72,19 @@ export class DynamicCrudComponent implements OnInit {
   }
   onUpdate(){
     let updatedData = this.regForm.value;
-    updatedData['_id'] = this.edit_value['_id'];
-    this.apiService.updateUserDetail(updatedData).subscribe((data:any)=>{
+    this.apiService.updateUserDetail(this.edit_value['_id'] as string,updatedData).subscribe((data:any)=>{
       if(data){
-        alert(data);
         this.edit_flag = false;
         this.getUserDetails();
         this.resetForm();
       }
     })
-    // this.tableData[this.edit_index] = this.regForm.value;
-    
   }
   onDelete(index:number,value:FormType){
     this.edit_value = value;
-    this.apiService.deleteUserDetail(value).subscribe((data:any)=>{
+    this.apiService.deleteUserDetail(value['_id'] as string).subscribe((data:any)=>{
       if(data){
-        alert(data);
         this.getUserDetails();
-        // this.tableData.splice(index,1);
-        if(this.tableData.length === 0){
-          this.noData_flag = false;
-        } else {
-          this.noData_flag = true;
-        }
       }
     })
   }

@@ -29,3 +29,18 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## Backend Steps
+
+1. create tsconfig.json .env
+2. npm install cors dotenv express mongodb
+3. npm install --save-dev typescript @types/cors @types/express @types/node ts-node
+4. npx ts-node src/server.ts
+
+## Frontend Steps
+
+1. npm install -g @angular/cli
+2. ng generate interface user
+3. ng generate service user
+4. ng generate component <xyz>
+5. ng serve
