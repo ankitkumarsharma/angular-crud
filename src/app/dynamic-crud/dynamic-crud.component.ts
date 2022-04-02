@@ -1,3 +1,4 @@
+import { TOASTER_MESSAGE_SUCCESS } from './../core/app.constant';
 import { ApiService } from './../services/api/api.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -16,6 +17,7 @@ export class DynamicCrudComponent implements OnInit {
   edit_flag!:boolean;
   edit_index!:number;
   edit_value!:FormType;
+  readonly toaster = TOASTER_MESSAGE_SUCCESS;
   constructor(private _fb:FormBuilder, private apiService: ApiService) { }
 
   ngOnInit(): void {
@@ -31,6 +33,9 @@ export class DynamicCrudComponent implements OnInit {
         this.tableData = [];
         this.noData_flag = false;
       }
+    },
+    (error)=>{
+      alert(error.message)
     })
   }
   get fc(){
@@ -53,6 +58,9 @@ export class DynamicCrudComponent implements OnInit {
       }
       this.apiService.insertUserDetails(value).subscribe((data:any)=>{
         this.getUserDetails();
+      },
+      (error)=>{
+        alert(error.message)
       })
       this.submitted = false;
       this.regForm.reset();
@@ -78,6 +86,9 @@ export class DynamicCrudComponent implements OnInit {
         this.getUserDetails();
         this.resetForm();
       }
+    },
+    (error)=>{
+      alert(error.message)
     })
   }
   onDelete(index:number,value:FormType){
@@ -86,6 +97,9 @@ export class DynamicCrudComponent implements OnInit {
       if(data){
         this.getUserDetails();
       }
+    },
+    (error)=>{
+      alert(error.message)
     })
   }
   resetForm(){
