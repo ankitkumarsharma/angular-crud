@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FormType } from '../core/app.types';
 
 @Component({
@@ -19,14 +19,18 @@ export class StaticCrudComponent implements OnInit {
   ngOnInit(): void {
     this.formInit();
   }
-  get fc(){
-    return this.regForm.controls;
+
+  getFormControlError(control:string){
+    return this.submitted && this.regForm.controls[control].errors
+  }
+  getFormControlErrorValidation(control:string,validation:string){
+    return this.submitted && this.regForm.controls[control].errors?.[validation]
   }
   formInit(){
     this.regForm = this._fb.group({
       name:['', Validators.required],
       email:['', [Validators.required, Validators.email]],
-      mobile:['', [Validators.required, Validators.maxLength(10)]]
+      mobile:['', [Validators.required, Validators.min(10)]]
     });
   }
   onSubmit(value:FormType){
@@ -71,5 +75,7 @@ export class StaticCrudComponent implements OnInit {
     this.submitted = false;
     this.edit_flag = false;
   }
-
+  requiredErrorDesc(label:string){
+    return `${label} field is required`;
+  }
 }

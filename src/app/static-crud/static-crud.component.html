@@ -19,28 +19,29 @@
           <div class="form-group row">
             <label class="col-md-3">Name</label>
             <div class="col-md-5">
-              <input [ngClass]="{'is-invalid': submitted && fc.name.errors}" type="text" class="form-control" formControlName="name">
-              <div *ngIf="submitted && fc.name.errors">
-                <span *ngIf="submitted && fc.name.errors?.required" class="error">This field is required.</span>
+              <input [ngClass]="{'is-invalid': getFormControlError('name')}" type="text" class="form-control" formControlName="name">
+              <div *ngIf="getFormControlError('name')">
+                <span *ngIf="getFormControlErrorValidation('name','required')" class="error">{{requiredErrorDesc('Name')}}</span>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3">Email Id</label>
             <div class="col-md-5">
-              <input [ngClass]="{'is-invalid': submitted && fc.email.errors}" type="text" class="form-control" formControlName="email">
-              <div *ngIf="submitted && fc.email.errors">
-                <span *ngIf="submitted && fc.email.errors?.required" class="error">This field is required.</span>
-                <span *ngIf="submitted && fc.email.errors?.email" class="error">Email format is required.</span>
+              <input [ngClass]="{'is-invalid': getFormControlError('email')}" type="text" class="form-control" formControlName="email">
+              <div *ngIf="getFormControlError('email')">
+                <span *ngIf="getFormControlErrorValidation('email','required')" class="error">{{requiredErrorDesc('Email Id')}}</span>
+                <span *ngIf="getFormControlErrorValidation('email','email')" class="error">Email format is required.</span>
               </div>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-md-3">Mobile No.</label>
             <div class="col-md-5">
-              <input type="text" [ngClass]="{'is-invalid': submitted && fc.email.errors}" class="form-control" maxlength="10" formControlName="mobile">
-              <div *ngIf="submitted && fc.mobile.errors">
-                <span *ngIf="submitted && fc.mobile.errors?.required" class="error">This field is required.</span>
+              <input type="number" [ngClass]="{'is-invalid': getFormControlError('mobile')}" class="form-control" maxlength="10" formControlName="mobile">
+              <div *ngIf="getFormControlError('mobile')">
+                <span *ngIf="getFormControlErrorValidation('mobile','required')" class="error">{{requiredErrorDesc('Mobile No')}}</span>
+                <span *ngIf="getFormControlErrorValidation('mobile','min')" class="error">Min number is 10</span>
               </div>
             </div>
           </div>
