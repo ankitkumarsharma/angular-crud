@@ -30,7 +30,7 @@ export class StaticCrudComponent implements OnInit {
     this.regForm = this._fb.group({
       name:['', Validators.required],
       email:['', [Validators.required, Validators.email]],
-      mobile:['', [Validators.required, Validators.min(10)]]
+      mobile:['', [Validators.required, Validators.max(10)]]
     });
   }
   onSubmit(value:FormType){
@@ -51,11 +51,16 @@ export class StaticCrudComponent implements OnInit {
   onEdit(index:number){
     this.edit_flag = true;
     this.edit_index = index;
-    this.regForm.setValue({
-      name:this.tableData[index]['name'],
-      email:this.tableData[index]['email'],
-      mobile:this.tableData[index]['mobile'],
+    let updateObj:any;
+    let data:any = this.tableData[index];
+    Object.keys(this.regForm.value).map((itemParent)=>{
+      Object.keys(this.tableData[index]).map((itemChild)=>{
+        if(itemParent == itemChild){
+          updateObj = {...updateObj,[itemParent]: data[itemParent]}
+        }
+      })
     })
+    this.regForm.setValue(updateObj);
   }
   onUpdate(){
     this.tableData[this.edit_index] = this.regForm.value;

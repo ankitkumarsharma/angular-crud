@@ -41,7 +41,7 @@
               <input type="number" [ngClass]="{'is-invalid': getFormControlError('mobile')}" class="form-control" maxlength="10" formControlName="mobile">
               <div *ngIf="getFormControlError('mobile')">
                 <span *ngIf="getFormControlErrorValidation('mobile','required')" class="error">{{requiredErrorDesc('Mobile No')}}</span>
-                <span *ngIf="getFormControlErrorValidation('mobile','min')" class="error">Min number is 10</span>
+                <span *ngIf="getFormControlErrorValidation('mobile','max')" class="error">Max number is 10</span>
               </div>
             </div>
           </div>
