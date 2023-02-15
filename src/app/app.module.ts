@@ -10,13 +10,19 @@ import { StaticCrudComponent } from './static-crud/static-crud.component';
 import { DynamicCrudComponent } from './dynamic-crud/dynamic-crud.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { BookRoomComponent } from './book-room/book-room.component';
+import { BackToParentComponent } from './shared/back-to-parent/back-to-parent.component';
+import { PageNotFoundComponent } from './shared/page-not-found/page-not-found.component';
 @NgModule({
   declarations: [
     AppComponent,
     ContactComponent,
     HomeComponent,
     StaticCrudComponent,
-    DynamicCrudComponent
+    DynamicCrudComponent,
+    BookRoomComponent,
+    BackToParentComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,

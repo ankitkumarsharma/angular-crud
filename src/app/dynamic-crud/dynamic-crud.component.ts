@@ -18,6 +18,7 @@ export class DynamicCrudComponent implements OnInit {
   edit_index!:number;
   edit_value!:FormType;
   readonly toaster = TOASTER_MESSAGE_SUCCESS;
+  pageTitle:string = 'Dynamic CRUD';
   constructor(private _fb:FormBuilder, private apiService: ApiService) { }
 
   ngOnInit(): void {

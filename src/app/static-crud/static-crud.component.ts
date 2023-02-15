@@ -14,6 +14,7 @@ export class StaticCrudComponent implements OnInit {
   noData_flag!:boolean;
   edit_flag!:boolean;
   edit_index!:number;
+  pageTitle:string = 'Static simple form CRUD';
   constructor(private _fb:FormBuilder) { }
 
   ngOnInit(): void {
