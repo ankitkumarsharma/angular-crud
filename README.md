@@ -44,3 +44,7 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 3. ng generate service user
 4. ng generate component <xyz>
 5. ng serve
+
+## More Feature
+
+Coming soon.
